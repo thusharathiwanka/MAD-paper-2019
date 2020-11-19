@@ -1,5 +1,6 @@
 package com.example.a2019_paper_a;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -27,5 +28,15 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
+    public long registerUser (String username, String password) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseMaster.Users.username, username);
+        contentValues.put(DatabaseMaster.Users.password, password);
+
+        return sqLiteDatabase.insert(DatabaseMaster.Users.userTable, null, contentValues);
+    }
+
+    public
 }

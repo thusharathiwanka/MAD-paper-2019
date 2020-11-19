@@ -18,7 +18,7 @@ public class DatabaseMaster {
         public static final String movieYear = "movie_year";
     }
 
-    static class Comments implements BaseColumns{
+    static class Comments implements BaseColumns {
         public static final String commentTable = "comments";
         public static final String movieName = "movie_name";
         public static final String movieRating = "movie_rating";
