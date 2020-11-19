@@ -30,6 +30,8 @@ public class AddMovieActivity extends AppCompatActivity {
 
                 if(isAdded) {
                     Toast.makeText(AddMovieActivity.this, "Movie added", Toast.LENGTH_SHORT).show();
+                    movieName.setText("");
+                    movieYear.setText("");
                 } else {
                     Toast.makeText(AddMovieActivity.this, "Movie not added", Toast.LENGTH_SHORT).show();
                 }

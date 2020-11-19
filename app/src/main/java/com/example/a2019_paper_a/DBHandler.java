@@ -80,9 +80,17 @@ public class DBHandler extends SQLiteOpenHelper {
 //
 //    }
 //
-//    public boolean insertComments() {
-//
-//    }
+    public boolean insertComments(int rating, String comment) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseMaster.Comments.movieRating, rating);
+        contentValues.put(DatabaseMaster.Comments., comment);
+
+        long isInserted = sqLiteDatabase.insert(DatabaseMaster.Movie.movieTable, null, contentValues);
+
+        return isInserted != -1;
+    }
 //
 //    public Cursor viewComments() {
 //
