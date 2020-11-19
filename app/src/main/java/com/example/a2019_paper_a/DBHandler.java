@@ -2,6 +2,7 @@ package com.example.a2019_paper_a;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -38,5 +39,23 @@ public class DBHandler extends SQLiteOpenHelper {
         return sqLiteDatabase.insert(DatabaseMaster.Users.userTable, null, contentValues);
     }
 
-    public
+    public String loginUser(String username, String password) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor usernameCheck = sqLiteDatabase.rawQuery("SELECT * FROM " + DatabaseMaster.Users.userTable + " WHERE username = ?", new String[] {username});
+        Cursor passwordCheck = sqLiteDatabase.rawQuery("SELECT * FROM " + DatabaseMaster.Users.userTable + " WHERE password = ?", new String[] {password});
+
+        if(usernameCheck.getCount() == 1 || passwordCheck.getCount() == 1) {
+            Cursor detailsCheck = sqLiteDatabase.rawQuery("SELECT * FROM " + DatabaseMaster.Users.userTable + " WHERE username = ? AND password = ?",
+                    new String[] {username, password});
+
+            if(detailsCheck.getCount() == 1) {
+                return "exists";
+            } else {
+                return "not_matches";
+            }
+        } else {
+            return "not_exits";
+        }
+    }
 }

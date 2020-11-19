@@ -2,6 +2,7 @@ package com.example.a2019_paper_a;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,24 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String isExists = dbHandler.loginUser(username.getText().toString(), password.getText().toString());
 
+                if(isExists.equals("not_exists")) {
+                    Toast.makeText(MainActivity.this, "Login failed. Username and password not exists", Toast.LENGTH_SHORT).show();
+                } else if(isExists.equals("not_matches")) {
+                    Toast.makeText(MainActivity.this, "Login failed, Username and password not matching", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent;
+
+                    if(username.getText().toString().equals("admin")) {
+                        intent = new Intent(getApplicationContext(), AddMovieActivity.class);
+                    } else {
+                        intent = new Intent(getApplicationContext(), MovieListActivity.class);
+                    }
+
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
