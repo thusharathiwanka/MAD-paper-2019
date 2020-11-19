@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Login failed. Username and password not exists", Toast.LENGTH_SHORT).show();
                 } else if(isExists.equals("not_matches")) {
                     Toast.makeText(MainActivity.this, "Login failed, Username and password not matching", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(isExists.equals("exists")) {
                     Intent intent;
 
                     if(username.getText().toString().equals("admin")) {
