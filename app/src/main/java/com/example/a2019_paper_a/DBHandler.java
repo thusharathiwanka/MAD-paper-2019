@@ -76,16 +76,23 @@ public class DBHandler extends SQLiteOpenHelper {
         return isInserted != -1;
     }
 
-//    public Cursor viewMovies() {
-//
-//    }
-//
+    public void viewMovies() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + DatabaseMaster.Movie.movieTable, null);
+        movies = new ArrayList<String>();
+
+        while (cursor.moveToNext()) {
+            movies.add(cursor.getString(1));
+        }
+    }
+
     public boolean insertComments(int rating, String comment) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseMaster.Comments.movieRating, rating);
-        contentValues.put(DatabaseMaster.Comments., comment);
+        contentValues.put(DatabaseMaster.Comments.movie_comments, comment);
 
         long isInserted = sqLiteDatabase.insert(DatabaseMaster.Movie.movieTable, null, contentValues);
 
