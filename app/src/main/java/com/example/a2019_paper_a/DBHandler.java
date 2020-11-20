@@ -87,21 +87,29 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insertComments(int rating, String comment) {
+    public boolean insertComments(String movieName, int rating, String comment) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseMaster.Comments.movieName, movieName);
         contentValues.put(DatabaseMaster.Comments.movieRating, rating);
         contentValues.put(DatabaseMaster.Comments.movie_comments, comment);
 
-        long isInserted = sqLiteDatabase.insert(DatabaseMaster.Movie.movieTable, null, contentValues);
+        long isInserted = sqLiteDatabase.insert(DatabaseMaster.Comments.commentTable, null, contentValues);
 
         return isInserted != -1;
     }
-//
-//    public Cursor viewComments() {
-//
-//    }
+
+    public void viewComments(String movieName) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + DatabaseMaster.Comments.commentTable + " WHERE movie_name = ?", new String[] {movieName});
+        comments = new ArrayList<String>();
+
+        while (cursor.moveToNext()) {
+            comments.add(cursor.getString(3));
+        }
+    }
 
     public ArrayList<String> getMovies() {
         return movies;
